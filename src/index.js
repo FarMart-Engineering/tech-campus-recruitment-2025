@@ -3,12 +3,12 @@ const readline = require('readline');
 const https = require('https');
 const path = require('path');
 
-const LOG_FILE_PATH = path.join(__dirname, 'test_logs.log');
+const LOG_FILE_PATH = path.join(__dirname, 'test.logs.log');
 const OUTPUT_DIR = path.join(__dirname, '../output');
-const LOG_FILE_URL = "https://limewire.com/d/90794bb3-6831-4e02-8a59-ffc7f3b8b2a3#X1xnzrH5s4H_DKEkT_dfBuUT1mFKZuj4cFWNoMJGX98";
+const LOG_FILE_URL = "https://limewire.com/d/0c95044f-d489-4101-bf1a-ca48839eea86#cVKnm0pKXpN6pjsDwav4f5MNssotyy0C8Xvaor1bA5U";
 
 
-//fucniton to download the fule for future prevention and overwriitern
+//fucniton to download the fule for future uprevention and overwriitern
 async function downloadLogFile() {
     if (fs.existsSync(LOG_FILE_PATH)) {
         console.log("Log file already exists.");
