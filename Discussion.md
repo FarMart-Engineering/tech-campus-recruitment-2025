@@ -16,7 +16,9 @@ Approach 2:
             why it is better? coz 
             It is Memory Efficient coz it doesn't load the entire file , rather processes line by line and
             Faster Execution coz  the Single-pass processing minimizes Input/Output.
-steps:
+
+            
+Steps to Follow:
             So the script is designed to pull out log entries for a specific date from a large log file.
             First, it checks if the output directory exists and creates it if necessary. Then, it reads through the log file line by line, checking if each                 line starts with the target date.
             If it does, the line is written to an output file. The script also includes error handling to manage missing files or other unexpected issues.                 
