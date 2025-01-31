@@ -1,41 +1,25 @@
 import os
 
-def create_index(log_file, index_file):
+def extract_logs(log_file, target_date):
+    output_dir = "output"
+    output_file = f"{output_dir}/output_{target_date}.txt"
+
     
-    index = {}
-    with open(log_file, 'r', encoding='utf-8') as f:
-        while True:
-            pos = f.tell()  
-            line = f.readline()
-            if not line:
-                break
-            date = line.split()[0]  
-            if date not in index:
-                index[date] = pos  
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
-    with open(index_file, 'w') as idx:
-        for date, offset in index.items():
-            idx.write(f"{date} {offset}\n")
+    try:
+        with open(log_file, 'r', encoding='utf-8') as infile:
+            with open(output_file, 'w', encoding='utf-8') as outfile:
+                for line in infile:
+                    if line.startswith(target_date): 
+                        outfile.write(line)
 
-def fetch_logs_using_index(log_file, index_file, target_date):
-  
-    offset = None
-    with open(index_file, 'r') as idx:
-        for line in idx:
-            date, pos = line.strip().split()
-            if date == target_date:
-                offset = int(pos)
-                break
+        print(f" Logs for {target_date} saved in {output_file}")
 
-    if offset is None:
-        print(f"No logs found for {target_date}")
-        return
+    except FileNotFoundError:
+        print(f"Error: Log file '{log_file}' not found. Check the file path.")
+    except Exception as e:
+        print(f"Unexpected error occurred: {e}")
 
-    with open(log_file, 'r', encoding='utf-8') as f:
-        f.seek(offset) 
-        with open(f"output/output_{target_date}.txt", 'w') as output:
-            for line in f:
-                if not line.startswith(target_date):
-                    break  
-                output.write(line)
 
