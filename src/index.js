@@ -2,8 +2,10 @@ const fs = require('fs');
 const readline = require('readline');
 const https = require('https');
 const path = require('path');
+//make the file in ur directiry . i have adddde in gitignore as file was large
+const LOG_FILE_PATH = path.join(__dirname, 'logs_2024.log');
 
-const LOG_FILE_PATH = path.join(__dirname, 'test.logs.log');
+//saving gfile in output folder with the name
 const OUTPUT_DIR = path.join(__dirname, '../output');
 const LOG_FILE_URL = "https://limewire.com/d/0c95044f-d489-4101-bf1a-ca48839eea86#cVKnm0pKXpN6pjsDwav4f5MNssotyy0C8Xvaor1bA5U";
 
@@ -70,9 +72,9 @@ async function extractLogs(date) {
 
 
     for await (const line of rl) {
-        console.log(`Checking line: ${line}`);
+        //console.log(`Checking line: ${line}`);
         if (line.includes(date)) {
-            console.log(`Matched: ${line}`);
+            //console.log(`Matched: ${line}`);
             writeStream.write(line + '\n');
         }
     }

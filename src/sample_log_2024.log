@@ -1,0 +1,10 @@
+2025-01-30 10:15:30 INFO User logged in
+2025-01-30 10:16:05 ERROR Failed login attempt
+2025-01-30 10:17:12 WARN Disk space running low
+2025-01-31 09:05:45 INFO Payment processed successfully
+2025-01-31 09:07:30 ERROR Payment failed due to insufficient balance
+2025-01-31 09:10:22 DEBUG API response time: 320ms
+2025-01-31 09:15:50 INFO User logged out
+2025-02-01 08:45:12 INFO Server restarted
+2025-02-01 09:00:01 WARN High memory usage detected
+2025-02-01 09:30:15 ERROR Database connection lost
