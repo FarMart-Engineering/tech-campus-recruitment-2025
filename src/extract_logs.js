@@ -18,17 +18,28 @@ async function binarySearchFirst(filePath, date) {
         fs.closeSync(fd);
 
         const chunk = buffer.toString('utf8');
-
-        // Try to split the chunk at the last line break
         const lines = chunk.split('\n');
-        const line = lines[lines.length - 1];
 
-        if (line.startsWith(date)) {
+        // Check the first and last line of the chunk
+        const firstLine = lines[0];
+        const lastLine = lines[lines.length - 1];
+
+        // If the first line starts with the date, update the result and move left
+        if (firstLine.startsWith(date)) {
             result = mid;
             right = mid - 1;
-        } else if (line < date) {
+        }
+        // If the last line starts with the date, update the result and move right
+        else if (lastLine.startsWith(date)) {
+            result = mid;
             left = mid + 1;
-        } else {
+        }
+        // If the first line is lexicographically less than the date, move right
+        else if (firstLine < date) {
+            left = mid + 1;
+        }
+        // Otherwise, move left
+        else {
             right = mid - 1;
         }
     }
@@ -47,7 +58,7 @@ async function extractLogsForDate(logFile, date) {
         fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
 
-    const outputFilename = path.join(OUTPUT_DIR, "output.txt");
+    const outputFilename = path.join(OUTPUT_DIR, "output_logs.txt");
     const writeStream = fs.createWriteStream(outputFilename);
 
     const startPos = await binarySearchFirst(logFile, date);
@@ -71,12 +82,12 @@ async function extractLogsForDate(logFile, date) {
 }
 
 // Command-line execution
-if (process.argv.length !== 4) {
+if (process.argv.length !== 3) {
     console.error(`Usage: node ${path.basename(process.argv[1])} <log_file> <YYYY-MM-DD>`);
     process.exit(1);
 }
 
-const logFile = process.argv[2];
-const date = process.argv[3];
+const logFile = "./sample_logs.txt";
+const date = process.argv[2];
 
 extractLogsForDate(logFile, date);
