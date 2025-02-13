@@ -1,0 +1,8 @@
+2024-12-01 08:12:34 INFO System started
+2024-12-01 09:15:42 WARN Disk space running low
+2024-12-01 10:45:10 ERROR Database connection failed
+2024-12-02 11:20:15 INFO User logged in
+2024-12-02 14:05:22 INFO File uploaded successfully
+2024-12-03 07:30:00 INFO System rebooted
+2024-12-03 12:00:45 ERROR Application crashed
+2024-12-04 16:10:55 WARN High memory usage detected
