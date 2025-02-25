@@ -25,7 +25,25 @@ This method employs multiprocessing with regex pattern matching to enhance effic
 - **Progress Reporting**: Displays real-time progress updates during extraction.
 - **Error Handling**: Ensures robust error management, preventing failures in one chunk from affecting the entire operation.
 
+- ### Approach 3:
+** 1. Selective Field Indexing**
+Instead of indexing the entire content, the script now only indexes the timestamp field (date portion), creating a mapping between dates and file offsets. This significantly reduces index size and processing overhead.
+**2. Multi-level Index Structure**
+The solution now uses a two-level index hierarchy:
+
+Level 1: Year-Month index (e.g., "2024-02") → Maps to date ranges
+Level 2: Daily index (e.g., "2024-02-25") → Maps to file offsets
+
+This hierarchical approach ensures that even as the index grows beyond 8GB, searches remain fast by first narrowing down to the year-month and then to the specific day.
+**3. Preprocessing Approach**
+The script now preprocesses the log file to build the index structure and stores it persistently:
+
+Uses SQLite for efficient storage and retrieval of index data
+Creates a metadata file to track file changes
+Only rebuilds the index when necessary (file changed or index missing)
+
 ## Final Solution Summary
+I implemented the approach 2, as approch 3 will be fast but the first run will be slow, so approach3 seems like the best option in this scenerio.
 
 The multiprocessing approach with regex matching significantly improves performance for large log files, especially on multi-core machines. This method ensures accurate log extraction while maintaining efficiency.
 
