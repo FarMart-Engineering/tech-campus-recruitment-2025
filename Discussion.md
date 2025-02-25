@@ -25,7 +25,7 @@ This method employs multiprocessing with regex pattern matching to enhance effic
 - **Progress Reporting**: Displays real-time progress updates during extraction.
 - **Error Handling**: Ensures robust error management, preventing failures in one chunk from affecting the entire operation.
 
-- ### Approach 3:
+### Approach 3:
 **Selective Field Indexing**
 Instead of indexing the entire content, the script now only indexes the timestamp field (date portion), creating a mapping between dates and file offsets. This significantly reduces index size and processing overhead.
 
