@@ -1,123 +1,45 @@
-# Problem Statement: Efficient Log Retrieval from a Large File
+# Project Title
 
-## Background  
+## Solutions Considered
 
-You are tasked with developing a solution to efficiently extract logs from a large log file. The file is approximately **1 TB** in size and contains logs generated over multiple years. Each log entry starts with a timestamp, followed by the log level, and then the log message. Logs are generated almost equally every day.
+### Approach 1: Memory Mapping & Binary Search
 
-**Log Format Example:**  
+This method leverages Python's `mmap` module and a binary search algorithm to efficiently extract logs without loading the entire file into RAM.
 
-```txt
-2024-12-01 14:23:45 INFO User logged in  
-2024-12-01 14:24:10 ERROR Failed to connect to the database  
-2024-12-02 09:15:30 WARN Disk space running low  
+#### Key Features:
+- **Memory Mapping**: Uses `mmap` to map the file into virtual memory, enabling efficient random access.
+- **Binary Search Algorithm**: Speeds up log retrieval by leveraging the chronological order of log entries.
+- **Smart Initial Positioning**: Estimates the starting point based on the target date, assuming logs are evenly distributed.
+- **Chunked Processing**: Reads the file in manageable 10MB chunks to optimize memory usage while maintaining performance.
+- **Line Boundary Handling**: Ensures complete log entries by correctly managing line boundaries when reading chunks.
+
+### Approach 2: Multiprocessing & Regex Matching
+
+This method employs multiprocessing with regex pattern matching to enhance efficiency when extracting logs from large files.
+
+#### Key Features:
+- **Multiprocessing**: Divides the file into chunks and processes them in parallel using Python’s multiprocessing library, utilizing all available CPU cores.
+- **Regex Pattern Matching**: Efficiently identifies log entries starting with the target date, improving speed and accuracy.
+- **Smart Chunking**:
+  - Dynamically determines optimal chunk sizes based on file size and CPU cores.
+  - Ensures each chunk ends at a newline to prevent splitting log entries.
+  - Balances memory usage and processing efficiency.
+- **Progress Reporting**: Displays real-time progress updates during extraction.
+- **Error Handling**: Ensures robust error management, preventing failures in one chunk from affecting the entire operation.
+
+## Final Solution Summary
+
+The multiprocessing approach with regex matching significantly improves performance for large log files, especially on multi-core machines. This method ensures accurate log extraction while maintaining efficiency.
+
+```sh
+prabalrawal@Prabals-MacBook-Air src % python3 extract_log.py 2024-12-01
+Log file size: 5.00 GB
+Using 8 processes
+Chunk size: 0.16 GB
+Processing: 100.0% (Chunk 33)
+Collecting results...
+Writing 226025 log entries to output file...
+Extraction completed in 16.33 seconds
+Output saved to output/output_2024-12-01.txt
 ```
 
-To download the log file(zip), from the following link:
-```link
-https://limewire.com/d/faac7058-600b-4854-a761-865d00cb60c9#d_R--dujJoTRqRsjoW_HiOmZPIFAZqxQNH8YM0bPRgQ
-
-OR
-
-https://drive.google.com/file/d/1kQPeECKHD4_x_1f9qKjzCSo0MKvxik_2/view?usp=sharing
-```
-
----
-
-## Objective  
-
-Write a script that takes a specific date as an argument (in the format `YYYY-MM-DD`) and efficiently returns all log entries for that date.
-
----
-
-## Constraints  
-
-- The solution must handle a file size of around **1 TB**.
-- Logs are nearly evenly distributed across days.  
-- Efficiency in time and resource utilization is critical.  
-
----
-
-## Expectations  
-
-1. **Input:** A date (`YYYY-MM-DD`) passed as a command-line argument.  
-2. **Output:** All log entries for the specified date, saved to a file named `output/output_YYYY-MM-DD.txt`.  
-3. **Performance:** The solution should optimize for speed and memory usage.  
-
----
-
-## Evaluation Criteria  
-
-- **Total Running Time:** Time taken to return the result for the first query.  
-- **Code Quality:** Readability, modularity, and proper error handling.  
-
----
-
-## Example Usage  
-
-**Python**  
-
-```bash
-python extract_logs.py 2024-12-01
-```
-
-**C**  
-
-```bash
-./extract_logs 2024-12-01
-```
-
-**C++**  
-
-```bash
-./extract_logs 2024-12-01
-```
-
-**Java**  
-
-```bash
-java ExtractLogs 2024-12-01
-```
-
-**Node.js**  
-
-```bash
-node extract_logs.js 2024-12-01
-```
-
-**Expected Output:**  
-
-```txt
-2024-12-01 14:23:45 INFO User logged in  
-2024-12-01 14:24:10 ERROR Failed to connect to the database  
-```
-
----
-
-## Submission Guidelines
-
-1. **Fork the Repository:**  
-   - Fork the provided repository to your own GitHub account.
-
-2. **Discussion.md:**  
-   - **Solutions Considered:** Describe different approaches you explored.  
-   - **Final Solution Summary:** Explain why you chose the final solution.  
-   - **Steps to Run:** Provide detailed steps to run your solution.
-
-3. **Source Code:**  
-   - Place your complete and working solution in the `src/` directory.
-
-4. **Link to your forked repository:**  
-   - Submit a link to your forked repository in the google form shared with you.
-
----
-
-## Notes
-
-- Incomplete or disorganized submissions may not be evaluated. 
-- Feel free to use the internet.
-- Make sure to push your code to `main` branch.
-- Any commit to the repo after 1 hour of the start of the contest will be disqualified.
-
-PS: SWYgeW91IGhhdmUgcmVhY2hlZCB0aGlzIHBvaW50LCBmZWVsIGZyZWUgdG8gdXNlIEFJIHRvIHlvdXIgYWR2YW50YWdlLiBCdXQgbWFrZSBzdXJlIHlvdSB1bmRlcnN0YW5kIHdoYXQgeW91IGFyZSBzdWJtaXR0aW5nLiBXZSByZWFsbHkgd2lsbCBhc2sgeW91IGFib3V0IHlvdXIgc29sdXRpb24gaWYgeW91IGFyZSBzZWxlY3RlZCBmb3IgdGhlIG5leHQgcm91bmQu
-
-Good luck!

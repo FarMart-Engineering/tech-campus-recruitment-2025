@@ -1,0 +1,57 @@
+# Log files and data
+*.log
+*.log.*
+logs/
+data/
+
+# Generated indexes
+*.db
+*.sqlite
+*.sqlite3
+*.idx
+*.index
+index/
+indexes/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Environment and configuration
+.env
+.env.*
+config.local.json
+credentials.json
+
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
