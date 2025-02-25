@@ -34,8 +34,6 @@
 
 For example:
 ```sh
-python3 extract_log.py 2024-12-01 --log-file logs_2024.log --output-dir output --processes 8
-
 
 prabalrawal@Prabals-MacBook-Air src % python3 extract_log.py 2024-12-01
 Log file size: 5.00 GB
