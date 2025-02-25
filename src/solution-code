@@ -1,0 +1,25 @@
+import os
+
+def extract_logs(log_file, target_date):
+    output_dir = "output"
+    output_file = f"{output_dir}/output_{target_date}.txt"
+
+    
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    try:
+        with open(log_file, 'r', encoding='utf-8') as infile:
+            with open(output_file, 'w', encoding='utf-8') as outfile:
+                for line in infile:
+                    if line.startswith(target_date): 
+                        outfile.write(line)
+
+        print(f" Logs for {target_date} saved in {output_file}")
+
+    except FileNotFoundError:
+        print(f"Error: Log file '{log_file}' not found. Check the file path.")
+    except Exception as e:
+        print(f"Unexpected error occurred: {e}")
+
+
