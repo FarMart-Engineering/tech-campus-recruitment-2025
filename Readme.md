@@ -35,3 +35,16 @@
 For example:
 ```sh
 python3 extract_log.py 2024-12-01 --log-file logs_2024.log --output-dir output --processes 8
+
+
+prabalrawal@Prabals-MacBook-Air src % python3 extract_log.py 2024-12-01
+Log file size: 5.00 GB
+Using 8 processes
+Chunk size: 0.16 GB
+Processing: 100.0% (Chunk 33)
+Collecting results...
+Writing 226025 log entries to output file...
+Extraction completed in 16.33 seconds
+Output saved to output/output_2024-12-01.txt
+
+```
