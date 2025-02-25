@@ -1,5 +1,3 @@
-# Project Title
-
 ## Solutions Considered
 
 ### Approach 1: Memory Mapping & Binary Search
