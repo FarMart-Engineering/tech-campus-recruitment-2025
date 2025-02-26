@@ -1,0 +1,2 @@
+2024-11-30 12:00:01 Log entry one
+2024-11-30 12:05:23 Log entry two
